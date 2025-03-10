@@ -1,0 +1,26 @@
+services:
+  web-server:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - networks-app
+
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: database
+    volumes:
+      - simple-db:/var/lib/mysql
+    networks:
+      - networks-app
+
+networks:
+  networks-app:
+    driver: bridge
+
+volumes:
+  simple-db:
