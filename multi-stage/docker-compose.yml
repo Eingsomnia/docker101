@@ -1,0 +1,22 @@
+services:
+  flask:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+
+  database:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=mydb
+    volumes:
+      - mongodb:/data/db
+
+volumes:
+  mongodb:

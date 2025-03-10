@@ -1,0 +1,20 @@
+services:
+  flask:
+    build: .
+    container_name: my-webserver
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:6
+    container_name: my-database
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    restart: always
+
+volumes:
+  mongo-db:
